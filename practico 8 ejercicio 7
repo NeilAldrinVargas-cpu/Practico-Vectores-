@@ -1,0 +1,37 @@
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+// --- FUNCIÓN QUE CONVIERTE EL NÚMERO A LITERAL ---
+string obtenerLiteral(int numero) {
+    // Creamos un arreglo de cadenas de texto (strings) del 0 al 20
+    string nombres[] = {
+        "CERO", "UNO", "DOS", "TRES", "CUATRO", "CINCO", 
+        "SEIS", "SIETE", "OCHO", "NUEVE", "DIEZ", 
+        "ONCE", "DOCE", "TRECE", "CATORCE", "QUINCE", 
+        "DIECISEIS", "DIECISIETE", "DIECIOCHO", "DIECINUEVE", "VEINTE"
+    };
+
+    // Si el número está en el rango correcto, usamos el número como índice
+    if (numero >= 0 && numero <= 20) {
+        return nombres[numero];
+    } else {
+        return "ERROR: Numero fuera de rango (0 a 20)";
+    }
+}
+
+// --- FUNCIÓN PRINCIPAL ---
+int main() {
+    int numero;
+
+    cout << "Ingrese un numero entero (0 al 20): ";
+    cin >> numero;
+
+    // Llamamos a la función y mostramos el string devuelto
+    string resultado = obtenerLiteral(numero);
+    
+    cout << "Valor literal: " << resultado << endl;
+
+    return 0;
+}
