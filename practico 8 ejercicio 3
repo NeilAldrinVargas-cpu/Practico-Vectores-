@@ -1,0 +1,44 @@
+#include <iostream>
+
+using namespace std;
+
+// --- FUNCIÓN PARA CALCULAR EL PROMEDIO ---
+// Recibe el arreglo y devuelve el promedio (double)
+double calcularPromedio(double arreglo[], int tamano) {
+    double suma = 0; // Variable acumuladora para ir sumando todo
+
+    // Recorremos el arreglo y vamos acumulando la suma
+    for (int i = 0; i < tamano; i++) {
+        suma += arreglo[i]; // Esto es igual a: suma = suma + arreglo[i]
+    }
+
+    // El promedio es la suma de todo dividida entre el tamaño
+    return suma / tamano;
+}
+
+// --- FUNCIÓN PRINCIPAL ---
+int main() {
+    int cantidad;
+
+    // 1. Pedimos la cantidad de elementos
+    cout << "Ingrese la cantidad de numeros para el promedio: ";
+    cin >> cantidad;
+
+    double numeros[cantidad];
+
+    // 2. El usuario ingresa los datos por teclado
+    cout << "\n--- Ingreso de datos ---" << endl;
+    for (int i = 0; i < cantidad; i++) {
+        cout << "Ingrese el numero [" << i + 1 << "]: ";
+        cin >> numeros[i];
+    }
+
+    // 3. Llamamos a la función encargada del promedio
+    double promedioFinal = calcularPromedio(numeros, cantidad);
+
+    // 4. Mostramos el resultado
+    cout << "\n--------------------------------" << endl;
+    cout << "El promedio de los valores es: " << promedioFinal << endl;
+
+    return 0;
+}
