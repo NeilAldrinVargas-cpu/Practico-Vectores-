@@ -1,0 +1,63 @@
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+// --- FUNCIÓN PARA ORDENAR EN ORDEN DESCENDENTE (VECTORES PARALELOS) ---
+void ordenarPorNotasDescendente(string alumnos[], double notas[], int tamano) {
+    for (int i = 0; i < tamano - 1; i++) {
+        for (int j = 0; j < tamano - 1 - i; j++) {
+            // <--- Condición con '<' para ordenar de MAYOR a MENOR
+            if (notas[j] < notas[j + 1]) { 
+                
+                // 1. Intercambiamos las notas
+                double auxNota = notas[j];
+                notas[j] = notas[j + 1];
+                notas[j + 1] = auxNota;
+
+                // 2. ¡CRUCIAL! Intercambiamos los nombres en la misma posición
+                string auxAlumno = alumnos[j];
+                alumnos[j] = alumnos[j + 1];
+                alumnos[j + 1] = auxAlumno;
+            }
+        }
+    }
+}
+
+// --- FUNCIÓN PRINCIPAL ---
+int main() {
+    int cantidad;
+
+    cout << "Ingrese la cantidad total de alumnos: ";
+    cin >> cantidad;
+
+    // Creamos un vector de strings para nombres y uno de doubles para notas
+    string alumnos[cantidad];
+    double notas[cantidad];
+
+    // 1. Ingreso de datos acoplados
+    cout << "\n--- Registro de Alumnos y Notas ---" << endl;
+    for (int i = 0; i < cantidad; i++) {
+        cout << "\nAlumno [" << i + 1 << "] - Nombre: ";
+        cin >> alumnos[i];
+        cout << "Alumno [" << i + 1 << "] - Nota: ";
+        cin >> notas[i];
+    }
+
+    // 2. Ordenamos ambos vectores en base a las notas mas altas
+    ordenarPorNotasDescendente(alumnos, notas, cantidad);
+
+    // 3. Mostramos el Top 3 (o los que haya si son menos de 3)
+    cout << "\n=====================================" << endl;
+    cout << "     LOS 3 MEJORES ALUMNOS " << endl;
+    cout << "=====================================" << endl;
+    
+    // Si hay menos de 3 alumnos registrados, el tope será la cantidad total
+    int limiteTop = (cantidad < 3) ? cantidad : 3; 
+
+    for (int i = 0; i < limiteTop; i++) {
+        cout << i + 1 << "º Puesto: " << alumnos[i] << " con una nota de: " << notas[i] << endl;
+    }
+
+    return 0;
+}
