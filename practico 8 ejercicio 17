@@ -1,0 +1,50 @@
+#include <iostream>
+
+using namespace std;
+
+// --- FUNCIÓN PARA GENERAR LA SERIE DE FIBONACCI ---
+void generarFibonacci(int arreglo[], int n) {
+    // Caso base 1: Si al menos se pide 1 elemento, el primero siempre es 0
+    if (n >= 1) {
+        arreglo[0] = 0;
+    }
+    // Caso base 2: Si se piden 2 o más, el segundo siempre es 1
+    if (n >= 2) {
+        arreglo[1] = 1;
+    }
+
+    // A partir de la posición 2, sumamos los dos vecinos anteriores
+    for (int i = 2; i < n; i++) {
+        arreglo[i] = arreglo[i - 1] + arreglo[i - 2];
+    }
+}
+
+// --- FUNCIÓN PRINCIPAL ---
+int main() {
+    int n;
+
+    // 1. Pedimos cuántos números se desean generar
+    cout << "Ingrese la cantidad (n) de numeros de Fibonacci a generar: ";
+    cin >> n;
+
+    // Validación por si el usuario ingresa un número negativo o cero
+    if (n <= 0) {
+        cout << "Por favor, ingrese un numero mayor a 0." << endl;
+        return 0;
+    }
+
+    int vectorFibonacci[n];
+
+    // 2. Llamamos a la función para rellenar el vector
+    generarFibonacci(vectorFibonacci, n);
+
+    // 3. Mostramos el vector resultante en pantalla
+    cout << "\n--- LOS PRIMEROS " << n << " NUMEROS DE FIBONACCI ---" << endl;
+    cout << "[ ";
+    for (int i = 0; i < n; i++) {
+        cout << vectorFibonacci[i] << " ";
+    }
+    cout << "]" << endl;
+
+    return 0;
+}
