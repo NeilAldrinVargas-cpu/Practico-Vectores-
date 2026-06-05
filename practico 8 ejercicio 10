@@ -1,0 +1,76 @@
+#include <iostream>
+
+using namespace std;
+
+// --- FUNCIÓN PARA INTERCALAR MANTENIENDO EL ORDEN ---
+void intercalarVectores(double A[], int n, double B[], int m, double C[]) {
+    int i = 0; // Índice para recorrer el vector A
+    int j = 0; // Índice para recorrer el vector B
+    int k = 0; // Índice para rellenar el vector C
+
+    // 1. Mientras haya elementos en ambos vectores por comparar
+    while (i < n && j < m) {
+        if (A[i] < B[j]) {
+            C[k] = A[i]; // Si el de A es menor, pasa a C
+            i++;         // Avanzamos en A
+        } else {
+            C[k] = B[j]; // Si el de B es menor (o igual), pasa a C
+            j++;         // Avanzamos en B
+        }
+        k++; // Avanzamos siempre la posición en el vector destino C
+    }
+
+    // 2. Si el vector A terminó, copiamos los que queden en B
+    while (j < m) {
+        C[k] = B[j];
+        j++;
+        k++;
+    }
+
+    // 3. Si el vector B terminó, copiamos los que queden en A
+    while (i < n) {
+        C[k] = A[i];
+        i++;
+        k++;
+    }
+}
+
+// --- FUNCIÓN PRINCIPAL ---
+int main() {
+    int n, m;
+
+    cout << "Ingrese el tamano del vector A: ";
+    cin >> n;
+    cout << "Ingrese el tamano del vector B: ";
+    cin >> m;
+
+    double vectorA[n];
+    double vectorB[m];
+    double vectorResultado[n + m]; // El tamaño total es la suma de ambos
+
+    // NOTA: Para que funcione correctamente, recuerda ingresar los datos de forma ordenada
+    cout << "\n--- Ingreso de datos para Vector A (DE MENOR A MAYOR) ---" << endl;
+    for (int i = 0; i < n; i++) {
+        cout << "A[" << i + 1 << "]: ";
+        cin >> vectorA[i];
+    }
+
+    cout << "\n--- Ingreso de datos para Vector B (DE MENOR A MAYOR) ---" << endl;
+    for (int i = 0; i < m; i++) {
+        cout << "B[" << i + 1 << "]: ";
+        cin >> vectorB[i];
+    }
+
+    // Llamamos a la función encargada de la mezcla ordenada
+    intercalarVectores(vectorA, n, vectorB, m, vectorResultado);
+
+    // Mostramos el resultado final
+    cout << "\n--- VECTOR INTERCALADO Y ORDENADO ---" << endl;
+    cout << "[ ";
+    for (int i = 0; i < (n + m); i++) {
+        cout << vectorResultado[i] << " ";
+    }
+    cout << "]" << endl;
+
+    return 0;
+}
