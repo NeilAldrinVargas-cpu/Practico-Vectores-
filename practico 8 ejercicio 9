@@ -1,0 +1,60 @@
+#include <iostream>
+
+using namespace std;
+
+// --- FUNCIÓN PARA CONCATENAR LOS DOS ARREGLOS ---
+// Recibe el arreglo A, el arreglo B, el arreglo vacío C, y sus respectivos tamaños
+void concatenarVectores(double A[], int n, double B[], int m, double C[]) {
+    // 1. Copiamos los elementos de A en las primeras 'n' posiciones de C
+    for (int i = 0; i < n; i++) {
+        C[i] = A[i];
+    }
+
+    // 2. Copiamos los elementos de B en las posiciones restantes (después de 'n')
+    for (int i = 0; i < m; i++) {
+        C[n + i] = B[i];
+    }
+}
+
+// --- FUNCIÓN PRINCIPAL ---
+int main() {
+    int n, m;
+
+    // 1. Pedimos los tamaños de ambos vectores
+    cout << "Ingrese el tamano del primer vector (n): ";
+    cin >> n;
+    cout << "Ingrese el tamano del segundo vector (m): ";
+    cin >> m;
+
+    // Creamos los arreglos basándonos en los tamaños ingresados
+    double vectorA[n];
+    double vectorB[m];
+    double vectorResultado[n + m]; // El vector C mide la suma de ambos
+
+    // 2. Llenamos el primer vector (A)
+    cout << "\n--- Ingreso de datos Vector A ---" << endl;
+    for (int i = 0; i < n; i++) {
+        cout << "A[" << i + 1 << "]: ";
+        cin >> vectorA[i];
+    }
+
+    // 3. Llenamos el segundo vector (B)
+    cout << "\n--- Ingreso de datos Vector B ---" << endl;
+    for (int i = 0; i < m; i++) {
+        cout << "B[" << i + 1 << "]: ";
+        cin >> vectorB[i];
+    }
+
+    // 4. Llamamos a la función para unirlos en vectorResultado
+    concatenarVectores(vectorA, n, vectorB, m, vectorResultado);
+
+    // 5. Mostramos el resultado final concatenado
+    cout << "\n--- VECTOR CONCATENADO RESULTANTE ---" << endl;
+    cout << "[ ";
+    for (int i = 0; i < (n + m); i++) {
+        cout << vectorResultado[i] << " ";
+    }
+    cout << "]" << endl;
+
+    return 0;
+}
