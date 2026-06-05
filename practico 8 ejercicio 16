@@ -1,0 +1,147 @@
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+// --- 1) FUNCIÓN PARA INGRESAR UN ALUMNO Y SU NOTA ---
+void ingresarAlumno(string alumnos[], double notas[], int& total) {
+    cout << "\n--- Registrar Alumno ---" << endl;
+    cout << "Ingrese el nombre del alumno: ";
+    cin >> alumnos[total];
+    cout << "Ingrese la nota de " << alumnos[total] << ": ";
+    cin >> notas[total];
+    
+    total++; // Incrementamos el contador global de alumnos
+    cout << "¡Alumno registrado con exito!" << endl;
+}
+
+// --- 2) FUNCIÓN PARA LISTAR LOS ALUMNOS ---
+void listarAlumnos(string alumnos[], double notas[], int total) {
+    if (total == 0) {
+        cout << "\n[!] No hay alumnos registrados todavia." << endl;
+        return;
+    }
+    
+    cout << "\n--- Lista de Alumnos Registrados ---" << endl;
+    for (int i = 0; i < total; i++) {
+        cout << i + 1 << ". " << alumnos[i] << " \t- Nota: " << notas[i] << endl;
+    }
+}
+
+// --- 3) FUNCIÓN PARA ORDENAR ALFABÉTICAMENTE (Por Nombre) ---
+void ordenarAlfabeticamente(string alumnos[], double notas[], int total) {
+    if (total < 2) {
+        cout << "\n[!] Se necesitan al menos 2 alumnos para ordenar." << endl;
+        return;
+    }
+
+    // Algoritmo de burbuja comparando los strings de los nombres
+    for (int i = 0; i < total - 1; i++) {
+        for (int j = 0; j < total - 1 - i; j++) {
+            if (alumnos[j] > alumnos[j + 1]) {
+                // Intercambiamos los nombres
+                string auxNombre = alumnos[j];
+                alumnos[j] = alumnos[j + 1];
+                alumnos[j + 1] = auxNombre;
+
+                // Intercambiamos las notas para mantener el paralelismo
+                double auxNota = notas[j];
+                notas[j] = notas[j + 1];
+                notas[j + 1] = auxNota;
+            }
+        }
+    }
+    cout << "\n[+] Lista ordenada alfabeticamente de forma correcta." << endl;
+}
+
+// --- 4) FUNCIÓN PARA SACAR LA MEJOR NOTA ---
+void sacarMejorNota(string alumnos[], double notas[], int total) {
+    if (total == 0) {
+        cout << "\n[!] No hay alumnos registrados." << endl;
+        return;
+    }
+
+    double maxNota = notas[0];
+    string mejorAlumno = alumnos[0];
+
+    for (int i = 1; i < total; i++) {
+        if (notas[i] > maxNota) {
+            maxNota = notas[i];
+            mejorAlumno = alumnos[i];
+        }
+    }
+
+    cout << "\n--- Record de Calificacion ---" << endl;
+    cout << "La mejor nota es de: " << mejorAlumno << " con un " << maxNota << endl;
+}
+
+// --- 5) FUNCIÓN PARA SACAR EL PROMEDIO DE NOTAS ---
+void sacarPromedioNotas(double notas[], int total) {
+    if (total == 0) {
+        cout << "\n[!] No hay notas para promediar." << endl;
+        return;
+    }
+
+    double suma = 0;
+    for (int i = 0; i < total; i++) {
+        suma += notas[i];
+    }
+
+    double promedio = suma / total;
+    cout << "\n--- Estadisticas Generales ---" << endl;
+    cout << "El promedio de notas de todo el grupo es: " << promedio << endl;
+}
+
+// --- FUNCIÓN PRINCIPAL CON EL MENÚ interactivo ---
+int main() {
+    const int MAX_ALUMNOS = 100; // Capacidad maxima de la base de datos
+    string alumnos[MAX_ALUMNOS];
+    double notas[MAX_ALUMNOS];
+    int totalAlumnos = 0; // Lleva el control de cuantos casilleros reales usamos
+    int opcion;
+
+    do {
+        // Renderizado del menú visual
+        cout << "\n=====================================" << endl;
+        cout << "         SISTEMA DE GESTION          " << endl;
+        cout << "=====================================" << endl;
+        cout << "1) Ingresar un alumno y su nota" << endl;
+        cout << "2) Listar los alumnos" << endl;
+        cout << "3) Ordenar alfabeticamente" << endl;
+        cout << "4) Sacar la mejor nota" << endl;
+        cout << "5) Sacar el promedio de notas" << endl;
+        cout << "6) Salir del programa" << endl;
+        cout << "=====================================" << endl;
+        cout << "Seleccione una opcion (1-6): ";
+        cin >> opcion;
+
+        switch (opcion) {
+            case 1:
+                if (totalAlumnos < MAX_ALUMNOS) {
+                    ingresarAlumno(alumnos, notas, totalAlumnos);
+                } else {
+                    cout << "\n[!] Error: Base de datos llena." << endl;
+                }
+                break;
+            case 2:
+                listarAlumnos(alumnos, notas, totalAlumnos);
+                break;
+            case 3:
+                ordenarAlfabeticamente(alumnos, notas, totalAlumnos);
+                break;
+            case 4:
+                sacarMejorNota(alumnos, notas, totalAlumnos);
+                break;
+            case 5:
+                sacarPromedioNotas(notas, totalAlumnos);
+                break;
+            case 6:
+                cout << "\nCerrando el sistema. ¡Hasta luego!" << endl;
+                break;
+            default:
+                cout << "\n[!] Opcion invalida. Intente de nuevo." << endl;
+        }
+    } while (opcion != 6);
+
+    return 0;
+}
