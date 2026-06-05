@@ -1,0 +1,50 @@
+#include <iostream>
+
+using namespace std;
+
+// --- FUNCIÓN PARA ORDENAR EL VECTOR (MÉTODO BURBUJA) ---
+void ordenarAscendente(double arreglo[], int tamano) {
+    // El primer bucle controla cuántas pasadas le damos al vector
+    for (int i = 0; i < tamano - 1; i++) {
+        // El segundo bucle compara los elementos vecinos
+        for (int j = 0; j < tamano - 1 - i; j++) {
+            // Si el número actual es mayor que el siguiente, se intercambian
+            if (arreglo[j] > arreglo[j + 1]) {
+                double aux = arreglo[j];
+                arreglo[j] = arreglo[j + 1];
+                arreglo[j + 1] = aux;
+            }
+        }
+    }
+}
+
+// --- FUNCIÓN PRINCIPAL ---
+int main() {
+    int cantidad;
+
+    // 1. Pedimos la cantidad de elementos
+    cout << "Ingrese la cantidad de elementos a ordenar: ";
+    cin >> cantidad;
+
+    double numeros[cantidad];
+
+    // 2. El usuario ingresa los datos desordenados por teclado
+    cout << "\n--- Ingreso de datos desordenados ---" << endl;
+    for (int i = 0; i < cantidad; i++) {
+        cout << "Elemento [" << i + 1 << "]: ";
+        cin >> numeros[i];
+    }
+
+    // 3. Llamamos a la función para ordenar el mismo arreglo
+    ordenarAscendente(numeros, cantidad);
+
+    // 4. Mostramos la lista ya ordenada de menor a mayor
+    cout << "\n--- LISTA CLASIFICADA EN ORDEN ASCENDENTE ---" << endl;
+    cout << "[ ";
+    for (int i = 0; i < cantidad; i++) {
+        cout << numeros[i] << " ";
+    }
+    cout << "]" << endl;
+
+    return 0;
+}
