@@ -1,0 +1,54 @@
+#include <iostream>
+#include <cmath> // Necesaria para usar abs() (valor absoluto)
+
+using namespace std;
+
+// --- FUNCIÓN PARA ENCONTRAR LA MÁXIMA DIFERENCIA CONSECUTIVA ---
+double maximaDiferenciaConsecutiva(double arreglo[], int tamano) {
+    if (tamano < 2) {
+        cout << "Se necesitan al menos 2 numeros para calcular una diferencia." << endl;
+        return 0;
+    }
+
+    // Calculamos la primera diferencia entre la posición 0 y la 1 como valor inicial
+    double maxDiferencia = abs(arreglo[0] - arreglo[1]);
+
+    // Recorremos el arreglo comparando las parejas consecutivas restantes
+    // Nos detenemos en 'tamano - 1' para que i + 1 no se salga del vector
+    for (int i = 1; i < tamano - 1; i++) {
+        double diferenciaActual = abs(arreglo[i] - arreglo[i + 1]);
+        
+        if (diferenciaActual > maxDiferencia) {
+            maxDiferencia = diferenciaActual; // Actualizamos si encontramos una distancia mayor
+        }
+    }
+
+    return maxDiferencia;
+}
+
+// --- FUNCIÓN PRINCIPAL ---
+int main() {
+    int cantidad;
+
+    // 1. Pedimos la cantidad de elementos
+    cout << "Ingrese la cantidad de elementos del vector: ";
+    cin >> cantidad;
+
+    double numeros[cantidad];
+
+    // 2. El usuario ingresa los datos por teclado
+    cout << "\n--- Ingreso de datos ---" << endl;
+    for (int i = 0; i < cantidad; i++) {
+        cout << "Elemento [" << i + 1 << "]: ";
+        cin >> numeros[i];
+    }
+
+    // 3. Llamamos a la función
+    double resultado = maximaDiferenciaConsecutiva(numeros, cantidad);
+
+    // 4. Mostramos el resultado final
+    cout << "\n--------------------------------" << endl;
+    cout << "La diferencia mas grande entre consecutivos es: " << resultado << endl;
+
+    return 0;
+}
