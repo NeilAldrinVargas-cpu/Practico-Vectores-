@@ -1,0 +1,48 @@
+#include <iostream>
+
+using namespace std;
+
+// --- FUNCIÓN PARA CALCULAR LOS PROMEDIOS CONSECUTIVOS ---
+void promediosConsecutivos(double arreglo[], int tamano) {
+    // Si el usuario ingresa menos de 3 números, no se puede calcular nada
+    if (tamano < 3) {
+        cout << "Se necesitan al menos 3 numeros para calcular promedios consecutivos." << endl;
+        return;
+    }
+
+    cout << "\n--- RESULTADOS ---" << endl;
+    
+    // El bucle se detiene en 'tamano - 2' para evitar leer fuera de la memoria
+    for (int i = 0; i < tamano - 2; i++) {
+        double suma = arreglo[i] + arreglo[i + 1] + arreglo[i + 2];
+        double promedio = suma / 3.0;
+        
+        // Mostramos el cálculo en pantalla paso a paso
+        cout << "P" << i + 1 << " = ( " << arreglo[i] << " + " 
+             << arreglo[i + 1] << " + " << arreglo[i + 2] 
+             << " ) / 3 = " << promedio << endl;
+    }
+}
+
+// --- FUNCIÓN PRINCIPAL ---
+int main() {
+    int cantidad;
+
+    // 1. Pedimos la cantidad de elementos
+    cout << "Ingrese la cantidad de elementos del vector: ";
+    cin >> cantidad;
+
+    double numeros[cantidad];
+
+    // 2. El usuario ingresa los datos por teclado
+    cout << "\n--- Ingreso de datos ---" << endl;
+    for (int i = 0; i < cantidad; i++) {
+        cout << "Elemento [" << i + 1 << "]: ";
+        cin >> numeros[i];
+    }
+
+    // 3. Llamamos a la función para que calcule y muestre los promedios
+    promediosConsecutivos(numeros, cantidad);
+
+    return 0;
+}
