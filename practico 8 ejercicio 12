@@ -1,0 +1,63 @@
+#include <iostream>
+
+using namespace std;
+
+// --- FUNCIÓN AUXILIAR: REVISA SI UN NÚMERO YA EXISTE EN EL ARREGLO ---
+bool yaExiste(double valor, double arreglo[], int tamano) {
+    for (int i = 0; i < tamano; i++) {
+        if (arreglo[i] == valor) {
+            return true; // Si lo encuentra, devuelve verdadero
+        }
+    }
+    return false; // Si termina el bucle y no lo vio, devuelve falso
+}
+
+// --- FUNCIÓN PARA ELIMINAR DUPLICADOS ---
+// Devuelve el nuevo tamaño que tendrá el vector limpio
+int eliminarDuplicados(double original[], int tamanoOriginal, double limpio[]) {
+    int tamanoLimpio = 0; // Lleva la cuenta de cuántos elementos únicos van
+
+    for (int i = 0; i < tamanoOriginal; i++) {
+        // Si el número actual NO existe en el nuevo arreglo, lo guardamos
+        if (!yaExiste(original[i], limpio, tamanoLimpio)) {
+            limpio[tamanoLimpio] = original[i];
+            tamanoLimpio++; // Incrementamos el tamaño del nuevo vector
+        }
+    }
+    
+    return tamanoLimpio; // Devolvemos cuántos números quedaron al final
+}
+
+// --- FUNCIÓN PRINCIPAL ---
+int main() {
+    int cantidad;
+
+    // 1. Pedimos la cantidad de elementos
+    cout << "Ingrese la cantidad de elementos del vector: ";
+    cin >> cantidad;
+
+    double vectorOriginal[cantidad];
+    double vectorLimpio[cantidad]; // Creemos que en el peor caso mediría igual
+
+    // 2. El usuario ingresa los datos por teclado
+    cout << "\n--- Ingreso de datos (Prueba metiendo repetidos) ---" << endl;
+    for (int i = 0; i < cantidad; i++) {
+        cout << "Elemento [" << i + 1 << "]: ";
+        cin >> vectorOriginal[i];
+    }
+
+    // 3. Llamamos a la función para limpiar el vector
+    int nuevoTamano = eliminarDuplicados(vectorOriginal, cantidad, vectorLimpio);
+
+    // 4. Mostramos el resultado final sin repetidos
+    cout << "\n--- VECTOR SIN DUPLICADOS ---" << endl;
+    cout << "[ ";
+    for (int i = 0; i < nuevoTamano; i++) {
+        cout << vectorLimpio[i] << " ";
+    }
+    cout << "]" << endl;
+    
+    cout << "El vector se redujo de " << cantidad << " a " << nuevoTamano << " elementos." << endl;
+
+    return 0;
+}
