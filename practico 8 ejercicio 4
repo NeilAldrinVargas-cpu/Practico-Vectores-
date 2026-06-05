@@ -1,0 +1,52 @@
+#include <iostream>
+
+using namespace std;
+
+// --- FUNCIÓN PARA REVERTIR EL VECTOR ---
+// Recibe el vector original, el vector vacío donde copiaremos, y el tamaño
+void revertirVector(double original[], double invertado[], int tamano) {
+    for (int i = 0; i < tamano; i++) {
+        // Copia el elemento del extremo final del original al inicio del invertido
+        invertado[i] = original[tamano - 1 - i];
+    }
+}
+
+// --- FUNCIÓN PRINCIPAL ---
+int main() {
+    int cantidad;
+
+    // 1. Pedimos la cantidad de elementos
+    cout << "Ingrese la cantidad de elementos del vector: ";
+    cin >> cantidad;
+
+    // Creamos los DOS vectores con ese tamaño
+    double vectorOriginal[cantidad];
+    double vectorInvertido[cantidad];
+
+    // 2. El usuario ingresa los datos en el vector original
+    cout << "\n--- Llenando el vector original ---" << endl;
+    for (int i = 0; i < cantidad; i++) {
+        cout << "Elemento [" << i + 1 << "]: ";
+        cin >> vectorOriginal[i];
+    }
+
+    // 3. Llamamos a la función para rellenar el segundo vector
+    revertirVector(vectorOriginal, vectorInvertido, cantidad);
+
+    // 4. Mostramos los dos vectores para comprobar que el original no cambio
+    cout << "\n--- RESULTADOS ---" << endl;
+    
+    cout << "Vector Original:  ";
+    for (int i = 0; i < cantidad; i++) {
+        cout << vectorOriginal[i] << " ";
+    }
+    cout << endl;
+
+    cout << "Vector Invertido: ";
+    for (int i = 0; i < cantidad; i++) {
+        cout << vectorInvertido[i] << " ";
+    }
+    cout << endl;
+
+    return 0;
+}
